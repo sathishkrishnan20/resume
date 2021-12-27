@@ -1,0 +1,25 @@
+{
+  "name": "resume",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sathishkrishnan20/resume.git"
+  },
+  "keywords": [
+    "Resume"
+  ],
+  "author": "Sathish Krishnan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sathishkrishnan20/resume/issues"
+  },
+  "homepage": "https://github.com/sathishkrishnan20/resume#readme",
+  "dependencies": {
+    "express": "^4.17.2"
+  }
+}
