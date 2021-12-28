@@ -7,17 +7,44 @@ const { GoogleSpreadsheet } = require('google-spreadsheet');
     await doc.useServiceAccountAuth(creds);
     await doc.loadInfo(); // loads document properties and worksheets
     
-    console.log(doc.title);
-    const sheet = doc.sheetsByIndex[0]; // or use doc.sheetsById[id] or doc.sheetsByTitle[title]
-    console.log(sheet.title);
-    console.log(sheet.rowCount);
-    
+    const mapper = {
+      descriptionPoints: multiLineParser.bind(this)
+    }
+    const summaryList = await getSheetsData(doc, 0);
+    const expList = await getSheetsData(doc, 1, mapper);
+    const ownProjectsList = await getSheetsData(doc, 2, mapper);
+    const achievementsList = await getSheetsData(doc, 3);
+    const educationList = await getSheetsData(doc, 4);
     res.send({
-        title: sheet.title,
-        rowCount: sheet.rowCount
+      summaryList,
+      expList,
+      ownProjectsList,
+      achievementsList,
+      educationList
     })
   }
-
+function multiLineParser(data) {
+   return data.split('\n')
+}
+  
+async function getSheetsData(doc, sheetIndex, customParser = {}) {
+  const summarySheet = doc.sheetsByIndex[sheetIndex]; // or use doc.sheetsById[id] or doc.sheetsByTitle[title]
+  const summarySheetRowData = await summarySheet.getRows();
+  return getDataFromRows(summarySheet.headerValues, summarySheetRowData, customParser)
+}  
+function getDataFromRows(headers, rows, customParser) {
+  const data = [];
+  for (let index = 0; index < rows.length; index++) {
+    const row = rows[index];
+    const obj = {}
+    for (let hIndex = 0; hIndex < headers.length; hIndex++) {
+      const key = headers[hIndex];
+      obj[key] = customParser[key] ? customParser[key](row[key]) : row[key]
+    }
+    data.push(obj); 
+  }
+  return data;
+} 
 module.exports = {
     readResumeContents
 }

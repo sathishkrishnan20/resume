@@ -261,27 +261,37 @@
     <script src="scripts/bootstrap.bundle.min.js?ver=1.2.0"></script>
     <script src="scripts/aos.js?ver=1.2.0"></script>
     <script src="scripts/main.js?ver=1.2.0"></script>
+    <script src="scripts/main.js" async></script>
   </body>
 
 <script>
-  var summaryCard = document.getElementById('summary-card');
-  const summaryList = [
-      'Five years of experience in the Software Development and IT industry',
-      'Five years of Experience in Javascript, Node.js',
-      'Hands on Experience in MySQL, Postgress and MongoDB databases',
-      'Hands on Experience on React.JS and React Native',
-      'Good Experience in Microservices and REST Services',
-      'Good Experience on DialogFlow and ChatBot Services',
-      'Excellent analytical and logical programming skills with a good understanding at the conceptual level',
-      'Experience on Continuous Integration tool(Jenkins, CircleCI) and Version Control System(GIT)',
+    const defaultSummaryList = [
+    {
+      "summary": "Five years of experience in the Software Development and IT industry"
+    },
+    {
+      "summary": "Five years of Experience in Javascript, Node.js"
+    },
+    {
+      "summary": "Hands on Experience in MySQL, Postgress and MongoDB databases"
+    },
+    {
+      "summary": "Hands on Experience on React.JS and React Native"
+    },
+    {
+      "summary": "Good Experience in Microservices and REST Services"
+    },
+    {
+      "summary": "Good Experience on DialogFlow and ChatBot Services"
+    },
+    {
+      "summary": "Excellent analytical and logical programming skills with a good understanding at the conceptual level"
+    },
+    {
+      "summary": "Experience on Continuous Integration tool(Jenkins, CircleCI) and Version Control System(GIT)"
+    }
   ]
-  for (let index = 0; index < summaryList.length; index++) {
-    const summary = summaryList[index];
-    summaryCard.innerHTML += `<li><p>${summary}</p></li>`
-  }
-
-  var gal = document.getElementById('work-exp-card');
-  const workExperience = [
+  const defaultWorkExperience = [
     {
       position: 'Senior Software Developer',
       company: 'Quantiphi Analytics',
@@ -343,6 +353,78 @@
     },
   ]
 
+  const defaultOwnProjectData = [
+    {
+      projectName: 'Ayya Vaikunda Swamy',
+      technologies: 'Java, Android, MYSQL, Native Android, PHP',
+      descriptionPoints: [
+        'AVS is designed to publicize the information about “AYYA VAIKUNDA SWAMI” religion to the people and It provides all the historical and biographical information about him and his life',
+        'It allows the user to add/View the nearby temples. it has a facility to post their innovative poetry'
+      ]
+    },
+    {
+      projectName: 'Student Veus',
+      technologies: 'Java, Angular, Ionic, MySql',
+      descriptionPoints: [
+        'Student Veus Designed to connect the Student activities with their parents and staff activities with school or College management and it has a facility to mark the Student Attendance, exam scores, sports activities.',
+        "Staff can manage the student's profile and their related information as like management user can access staff as well as the Students profile and their related information"
+      ]
+    }
+  ]
+  
+  const defaultAchievementsList = [
+    {
+      title: 'Tougest Cookie annual award',
+      from: 'for 2021 from YaraConnect'
+    },
+    {
+      title: 'Core Value champion of Ambition award',
+      from: 'for Jun 2020 from YaraConnect'
+    },
+    {
+      title: 'Core Value champion of Ambition award',
+      from: 'for May 2020 from YaraConnect'
+    },
+    {
+      title: 'Unsung Hero Award',
+      from: 'for the 4th Quarter of 2019 from Quantiphi Analytics'
+    },
+    {
+      title: 'Core Value champion of Focus on Talent award',
+      from: 'for the 2nd Quarter of 2017 from Symphony Talent'
+    }
+  ]
+  const defaultEducationList = [
+    {
+      title: '2012-16: B.E Computer Science',
+      from: 'from Roever Engineering College, Perambalur with 69%'
+    },
+    {
+      title: '2011-12: HSC Computer Science',
+      from: 'from St. Anne’s HR Sec School, Koodankulam with 61%'
+    },
+    {
+      title: '2012-16: SSLC',
+      from: 'from St. Anne’s HR Sec School, Koodankulam with 61%'
+    }
+  ]
+
+
+  fetch('/read_resume')
+    .then(response => response.json())
+    .then(data => {
+      const {summaryList, expList, ownProjectsList, achievementsList } = data;
+      fillsData(summaryList, expList, ownProjectsList, achievementsList, educationList );
+    }).catch(e => fillsData(defaultSummaryList, defaultWorkExperience, defaultOwnProjectData, defaultAchievementsList, defaultEducationList ));
+
+function fillsData(summaryList, workExperience, ownProjectData, achievementsList, educationList) {
+ try {
+  const summaryCard = document.getElementById('summary-card');
+  for (const { summary } of summaryList) {
+    summaryCard.innerHTML += `<li><p>${summary}</p></li>`
+  }
+  
+  var gal = document.getElementById('work-exp-card');
   for (var i = 0; i < workExperience.length ; i++) {
     const workExp = workExperience[i];
     gal.innerHTML += `
@@ -365,24 +447,7 @@
       </div>
     `;
   };
-  const ownProjectData = [
-    {
-      projectName: 'Ayya Vaikunda Swamy',
-      technologies: 'Java, Android, MYSQL, Native Android, PHP',
-      descriptionPoints: [
-        'AVS is designed to publicize the information about “AYYA VAIKUNDA SWAMI” religion to the people and It provides all the historical and biographical information about him and his life',
-        'It allows the user to add/View the nearby temples. it has a facility to post their innovative poetry'
-      ]
-    },
-    {
-      projectName: 'Student Veus',
-      technologies: 'Java, Angular, Ionic, MySql',
-      descriptionPoints: [
-        'Student Veus Designed to connect the Student activities with their parents and staff activities with school or College management and it has a facility to mark the Student Attendance, exam scores, sports activities.',
-        "Staff can manage the student's profile and their related information as like management user can access staff as well as the Students profile and their related information"
-      ]
-    }
-  ]
+ 
   var ownProjects = document.getElementById('own-projects-card');
   for (let index = 0; index < ownProjectData.length; index++) {
     const { projectName, descriptionPoints, technologies } = ownProjectData[index];
@@ -399,58 +464,20 @@
             </div>
         </div>`
   }
-  var eductionCard = document.getElementById('education-card');
-  const educationList = [
-    {
-      title: '2012-16: B.E Computer Science',
-      from: 'from Roever Engineering College, Perambalur with 69%'
-    },
-    {
-      title: '2011-12: HSC Computer Science',
-      from: 'from St. Anne’s HR Sec School, Koodankulam with 61%'
-    },
-    {
-      title: '2012-16: SSLC',
-      from: 'from St. Anne’s HR Sec School, Koodankulam with 61%'
+  
+    const eductionCard = document.getElementById('education-card');
+    for (const { title, from } of educationList) {
+      eductionCard.innerHTML += `<li><div class="h5 mb-1">${title} <span class="text-muted h6">${from}</span></div></li>`;
     }
-  ]
-  for (let index = 0; index < educationList.length; index++) {
-    const { title, from } = educationList[index];
-    eductionCard.innerHTML += `
-      <li>
-        <div class="h5 mb-1">${title} <span class="text-muted h6">${from}</span></div>
-      </li>`
-  }
+    
+    const achievementsCard = document.getElementById('key-achievements-card');
+    for (const { title, from } of achievementsList) {
+      achievementsCard.innerHTML += `<li> <div class="h5 mb-1">${title} <span class="text-muted h6">${from}</span></div></li>`;
+    }
 
-  var achievementsCard = document.getElementById('key-achievements-card');
-  const achievementsList = [
-    {
-      title: 'Tougest Cookie annual award',
-      from: 'for 2021 from YaraConnect'
-    },
-    {
-      title: 'Core Value champion of Ambition award',
-      from: 'for Jun 2020 from YaraConnect'
-    },
-    {
-      title: 'Core Value champion of Ambition award',
-      from: 'for May 2020 from YaraConnect'
-    },
-    {
-      title: 'Unsung Hero Award',
-      from: 'for the 4th Quarter of 2019 from Quantiphi Analytics'
-    },
-    {
-      title: 'Core Value champion of Focus on Talent award',
-      from: 'for the 2nd Quarter of 2017 from Symphony Talent'
-    }
-  ]
-  for (let index = 0; index < achievementsList.length; index++) {
-    const { title, from } = achievementsList[index];
-    achievementsCard.innerHTML += `
-      <li>
-        <div class="h5 mb-1">${title} <span class="text-muted h6">${from}</span></div>
-      </li>`
-  }
+  } catch (error) {
+    console.log('error', error)
+  } 
+}
   </script>
 </html>
