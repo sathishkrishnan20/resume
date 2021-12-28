@@ -8,23 +8,34 @@ const { GoogleSpreadsheet } = require('google-spreadsheet');
     await doc.loadInfo(); // loads document properties and worksheets
     
     const mapper = {
-      descriptionPoints: multiLineParser.bind(this)
+      descriptionPoints: multiLineParser.bind(this),
+      isLeft: booleanParser.bind(this),
+      percentage: numberParser.bind(this),
     }
     const summaryList = await getSheetsData(doc, 0);
     const expList = await getSheetsData(doc, 1, mapper);
     const ownProjectsList = await getSheetsData(doc, 2, mapper);
     const achievementsList = await getSheetsData(doc, 3);
     const educationList = await getSheetsData(doc, 4);
+    const skillsList = await getSheetsData(doc, 5, mapper);
     res.send({
       summaryList,
       expList,
       ownProjectsList,
       achievementsList,
-      educationList
+      educationList,
+      skillsList,
     })
   }
 function multiLineParser(data) {
    return data.split('\n')
+}
+
+function booleanParser(data) {
+  return data === 'TRUE' ? true : false
+}
+function numberParser(data) {
+  return Number(data)
 }
   
 async function getSheetsData(doc, sheetIndex, customParser = {}) {

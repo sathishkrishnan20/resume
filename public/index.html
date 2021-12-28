@@ -106,8 +106,9 @@
   <hr class="d-print-none"/>
   <div class="skills-section px-3 px-lg-4">
     <h2 class="h3 mb-3">Professional Skills</h2>
-    <div class="row">
-      <div class="col-md-6">
+    <div id="skill-section" class="row">
+      
+      <!-- <div class="col-md-6">
         <div class="mb-2"><span>Javascript</span>
           <div class="progress my-1">
             <div class="progress-bar bg-primary" role="progressbar" data-aos="zoom-in-right" data-aos-delay="100" data-aos-anchor=".skills-section" style="width: 95%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
@@ -128,19 +129,9 @@
             <div class="progress-bar bg-primary" role="progressbar" data-aos="zoom-in-right" data-aos-delay="300" data-aos-anchor=".skills-section" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
           </div>
         </div>
-      </div>
-      <div class="col-md-6">
-        <div class="mb-2"><span>AWS</span>
-          <div class="progress my-1">
-            <div class="progress-bar bg-success" role="progressbar" data-aos="zoom-in-right" data-aos-delay="500" data-aos-anchor=".skills-section" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-        </div>
-        <div class="mb-2"><span>Chatbot Developemnt</span>
-          <div class="progress my-1">
-            <div class="progress-bar bg-success" role="progressbar" data-aos="zoom-in-right" data-aos-delay="600" data-aos-anchor=".skills-section" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-        </div>
-      </div>
+      </div> -->
+      
+      
     </div>
   </div>
   <hr class="d-print-none"/>
@@ -265,7 +256,7 @@
   </body>
 
 <script>
-    const defaultSummaryList = [
+  const defaultSummaryList = [
     {
       "summary": "Five years of experience in the Software Development and IT industry"
     },
@@ -409,15 +400,49 @@
     }
   ]
 
+  const defaultSkillsList = [{
+        isLeft: true,
+        title: 'Javascript',
+        percentage: 95
+      },
+      {
+        isLeft: true,
+        title: 'Node.js',
+        percentage: 95
+      },
+      {
+        isLeft: true,
+        title: 'React.js',
+        percentage: 85
+      },
+      {
+        isLeft: false,
+        title: 'React Native',
+        percentage: 85
+      },
+      {
+        isLeft: false,
+        title: 'AWS Services',
+        percentage: 80
+      },
+      {
+        isLeft: false,
+        title: 'Chatbot Development',
+        percentage: 80
+      }
+    ]
 
   fetch('/read_resume')
     .then(response => response.json())
     .then(data => {
-      const {summaryList, expList, ownProjectsList, achievementsList } = data;
-      fillsData(summaryList, expList, ownProjectsList, achievementsList, educationList );
-    }).catch(e => fillsData(defaultSummaryList, defaultWorkExperience, defaultOwnProjectData, defaultAchievementsList, defaultEducationList ));
+      const {summaryList, expList, ownProjectsList, achievementsList, educationList, skillsList } = data;
+      fillsData(summaryList, expList, ownProjectsList, achievementsList, educationList, skillsList );
+    }).catch(e => {
+      console.log('e', e);
+      fillsData(defaultSummaryList, defaultWorkExperience, defaultOwnProjectData, defaultAchievementsList, defaultEducationList, defaultSkillsList )
+    });
 
-function fillsData(summaryList, workExperience, ownProjectData, achievementsList, educationList) {
+function fillsData(summaryList = defaultSummaryList, workExperience = defaultWorkExperience, ownProjectData = defaultOwnProjectData, achievementsList = defaultAchievementsList, educationList = defaultEducationList, skillsList = defaultSkillsList) {
  try {
   const summaryCard = document.getElementById('summary-card');
   for (const { summary } of summaryList) {
@@ -474,10 +499,31 @@ function fillsData(summaryList, workExperience, ownProjectData, achievementsList
     for (const { title, from } of achievementsList) {
       achievementsCard.innerHTML += `<li> <div class="h5 mb-1">${title} <span class="text-muted h6">${from}</span></div></li>`;
     }
-
+    fillupSkills(skillsList);
   } catch (error) {
     console.log('error', error)
   } 
+
+  function fillupSkills(skillsList) {
+    const skillsSection = document.getElementById('skill-section');
+    skillsSection.innerHTML = `
+      <div class="col-md-6">
+        ${skillsList.filter(e => e.isLeft).map(e => `<div class="mb-2"><span>${e.title}</span>
+          <div class="progress my-1">
+            <div class="progress-bar bg-success" style="width: ${e.percentage}%" aria-valuenow="${e.percentage}" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>`).join('')}
+      </div>
+      
+      <div class="col-md-6">
+        ${skillsList.filter(e => !e.isLeft).map(e => `<div class="mb-2"><span>${e.title}</span>
+          <div class="progress my-1">
+            <div class="progress-bar bg-primary" style="width: ${e.percentage}%" aria-valuenow="${e.percentage}" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>`).join('')}
+      </div>
+    `;
+  }
 }
   </script>
 </html>
