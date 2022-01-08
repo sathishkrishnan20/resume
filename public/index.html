@@ -70,10 +70,10 @@
       <div class="col-md-5 offset-md-1">
         <div class="row mt-2">
           <div class="col-sm-4">
-            <div class="pb-1">Age</div>
+            <div class="pb-1">DOB</div>
           </div>
           <div class="col-sm-8">
-            <div class="pb-1 text-secondary">27</div>
+            <div class="pb-1 text-secondary">20-03-1994</div>
           </div>
           <div class="col-sm-4">
             <div class="pb-1">Email</div>
@@ -85,7 +85,7 @@
             <div class="pb-1">Phone</div>
           </div>
           <div class="col-sm-8">
-            <div class="pb-1 text-secondary">+91 8883334889</div>
+            <div class="pb-1 text-secondary">+91 8883334889/9164932823</div>
           </div>
           <div class="col-sm-4">
             <div class="pb-1">Address</div>
@@ -107,31 +107,7 @@
   <div class="skills-section px-3 px-lg-4">
     <h2 class="h3 mb-3">Professional Skills</h2>
     <div id="skill-section" class="row">
-      
-      <!-- <div class="col-md-6">
-        <div class="mb-2"><span>Javascript</span>
-          <div class="progress my-1">
-            <div class="progress-bar bg-primary" role="progressbar" data-aos="zoom-in-right" data-aos-delay="100" data-aos-anchor=".skills-section" style="width: 95%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-        </div>
-        <div class="mb-2"><span>Node.js</span>
-          <div class="progress my-1">
-            <div class="progress-bar bg-primary" role="progressbar" data-aos="zoom-in-right" data-aos-delay="200" data-aos-anchor=".skills-section" style="width: 95%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-        </div>
-        <div class="mb-2"><span>React.Js</span>
-          <div class="progress my-1">
-            <div class="progress-bar bg-primary" role="progressbar" data-aos="zoom-in-right" data-aos-delay="300" data-aos-anchor=".skills-section" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-        </div>
-        <div class="mb-2"><span>React Native</span>
-          <div class="progress my-1">
-            <div class="progress-bar bg-primary" role="progressbar" data-aos="zoom-in-right" data-aos-delay="300" data-aos-anchor=".skills-section" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-        </div>
-      </div> -->
-      
-      
+        <!-- Sklil Selection Logic -->
     </div>
   </div>
   <hr class="d-print-none"/>
@@ -284,6 +260,31 @@
   ]
   const defaultWorkExperience = [
     {
+      position: 'Software Developer',
+      company: 'Yara Digital Farming',
+      dateRange: 'Jan 2021 - Present',
+      projectName: 'Yara Connect Admin Portal',
+      technologies: 'Node.Js, Javascript, TypeScript, React.JS, React Native, PostgreSql, MySql',
+      descriptionPoints: [
+        'YaraConnect is a retailer-facing mobile application that aims to establish retailer Loyalty ecosystem by connecting Yara with its retailers.',
+        'It Enables the Feature that upon purchasing Yara products, retailers utilize the QR code scanner in the app to scan a QR code on the product packaging to earn YaraConnect points.',
+        'With the collated YaraConnect points, retailers can redeem Yara discount coupons or other attractive rewards (motorbike, Amazon vouchers, etc.) from a customized reward catalogue based on location.',
+        'These incentives encourage retailers to purchase more Yara products and to promote them to the farmers who visit their store.',
+      ]
+    },
+    {
+      position: 'Software Developer',
+      company: 'Yara Digital Farming',
+      dateRange: 'Jan 2021 - Present',
+      projectName: 'Yara Connect Admin Portal',
+      technologies: 'Node.Js, Javascript, TypeScript, React.JS, PostgreSql, MySql',
+      descriptionPoints: [
+      'YaraConnect-Admin Portal is a web application that provides Admin/BU have the ability to manage the Services and Configuration which is used on YaraConnect Mobile App',
+      'It provides the QR upload functionality Business Unit people to upload the QR before shipping the products to Retailer, and further retailers can scan the QR codes by using the YaraConnect App',
+      'It also provides the Redemption flow functionality, where admin can manage the rewards from purchase to delivery of the rewards which are purchased by retailers through YaraConnect App'
+      ]
+    },
+    {
       position: 'Senior Software Developer',
       company: 'Quantiphi Analytics',
       dateRange: 'Jul 2020 - Jan 2021',
@@ -412,6 +413,21 @@
       },
       {
         isLeft: true,
+        title: 'MySQL',
+        percentage: 85
+      },
+      {
+        isLeft: true,
+        title: 'PostgreSQL',
+        percentage: 80
+      },
+      {
+        isLeft: true,
+        title: 'MongoDB',
+        percentage: 75
+      },
+      {
+        isLeft: false,
         title: 'React.js',
         percentage: 85
       },
@@ -441,7 +457,6 @@
       console.log('e', e);
       fillsData(defaultSummaryList, defaultWorkExperience, defaultOwnProjectData, defaultAchievementsList, defaultEducationList, defaultSkillsList )
     });
-
 function fillsData(summaryList = defaultSummaryList, workExperience = defaultWorkExperience, ownProjectData = defaultOwnProjectData, achievementsList = defaultAchievementsList, educationList = defaultEducationList, skillsList = defaultSkillsList) {
  try {
   const summaryCard = document.getElementById('summary-card');
@@ -453,6 +468,7 @@ function fillsData(summaryList = defaultSummaryList, workExperience = defaultWor
   for (var i = 0; i < workExperience.length ; i++) {
     const workExp = workExperience[i];
     gal.innerHTML += `
+      ${workExp.pageBreak? '<div class="page-break"></div>': ''} 
       <div class="timeline-card timeline-card-primary card shadow-sm">
         <div class="card-body">
           <div class="h3 mb-1">${workExp.projectName}</div>
