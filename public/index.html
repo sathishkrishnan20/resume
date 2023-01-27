@@ -15,6 +15,7 @@
     <link href="css/bootstrap.css?ver=1.2.0" rel="stylesheet">
     <link href="css/aos.css?ver=1.2.0" rel="stylesheet">
     <link href="css/main.css?ver=1.2.0" rel="stylesheet">
+    <script type = "text/javascript" src="spreadsheet.js"></script>  
     <noscript>
       <style type="text/css">
         [data-aos] {
@@ -447,16 +448,20 @@
         percentage: 80
       }
     ]
-
-  fetch('/read_resume')
-    .then(response => response.json())
-    .then(data => {
+    fillsData(defaultSummaryList, defaultWorkExperience, defaultOwnProjectData, defaultAchievementsList, defaultEducationList, defaultSkillsList )
+    const {summaryList, expList, ownProjectsList, achievementsList, educationList, skillsList } = getContents().then(data => {
       const {summaryList, expList, ownProjectsList, achievementsList, educationList, skillsList } = data;
       fillsData(summaryList, expList, ownProjectsList, achievementsList, educationList, skillsList );
-    }).catch(e => {
-      console.log('e', e);
-      fillsData(defaultSummaryList, defaultWorkExperience, defaultOwnProjectData, defaultAchievementsList, defaultEducationList, defaultSkillsList )
     });
+  // fetch('/read_resume')
+  //   .then(response => response.json())
+  //   .then(data => {
+  //     const {summaryList, expList, ownProjectsList, achievementsList, educationList, skillsList } = data;
+  //     fillsData(summaryList, expList, ownProjectsList, achievementsList, educationList, skillsList );
+  //   }).catch(e => {
+  //     console.log('e', e);
+  //     fillsData(defaultSummaryList, defaultWorkExperience, defaultOwnProjectData, defaultAchievementsList, defaultEducationList, defaultSkillsList )
+  //   });
 function fillsData(summaryList = defaultSummaryList, workExperience = defaultWorkExperience, ownProjectData = defaultOwnProjectData, achievementsList = defaultAchievementsList, educationList = defaultEducationList, skillsList = defaultSkillsList) {
  try {
   const summaryCard = document.getElementById('summary-card');
