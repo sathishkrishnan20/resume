@@ -449,27 +449,22 @@
       }
     ]
     fillsData(defaultSummaryList, defaultWorkExperience, defaultOwnProjectData, defaultAchievementsList, defaultEducationList, defaultSkillsList )
-    const {summaryList, expList, ownProjectsList, achievementsList, educationList, skillsList } = getContents().then(data => {
+    getContents().then(data => {
       const {summaryList, expList, ownProjectsList, achievementsList, educationList, skillsList } = data;
       fillsData(summaryList, expList, ownProjectsList, achievementsList, educationList, skillsList );
     });
-  // fetch('/read_resume')
-  //   .then(response => response.json())
-  //   .then(data => {
-  //     const {summaryList, expList, ownProjectsList, achievementsList, educationList, skillsList } = data;
-  //     fillsData(summaryList, expList, ownProjectsList, achievementsList, educationList, skillsList );
-  //   }).catch(e => {
-  //     console.log('e', e);
-  //     fillsData(defaultSummaryList, defaultWorkExperience, defaultOwnProjectData, defaultAchievementsList, defaultEducationList, defaultSkillsList )
-  //   });
+
 function fillsData(summaryList = defaultSummaryList, workExperience = defaultWorkExperience, ownProjectData = defaultOwnProjectData, achievementsList = defaultAchievementsList, educationList = defaultEducationList, skillsList = defaultSkillsList) {
  try {
   const summaryCard = document.getElementById('summary-card');
+  summaryCard.innerHTML = '';
+
   for (const { summary } of summaryList) {
     summaryCard.innerHTML += `<li><p>${summary}</p></li>`
   }
   
   var gal = document.getElementById('work-exp-card');
+  gal.innerHTML = '';
   for (var i = 0; i < workExperience.length ; i++) {
     const workExp = workExperience[i];
     gal.innerHTML += `
@@ -495,6 +490,7 @@ function fillsData(summaryList = defaultSummaryList, workExperience = defaultWor
   };
  
   var ownProjects = document.getElementById('own-projects-card');
+  ownProjects.innerHTML = '';
   for (let index = 0; index < ownProjectData.length; index++) {
     const { projectName, descriptionPoints, technologies } = ownProjectData[index];
       ownProjects.innerHTML += 
@@ -512,11 +508,13 @@ function fillsData(summaryList = defaultSummaryList, workExperience = defaultWor
   }
   
     const eductionCard = document.getElementById('education-card');
+    eductionCard.innerHTML = '';
     for (const { title, from } of educationList) {
       eductionCard.innerHTML += `<li><div class="h5 mb-1">${title} <span class="text-muted h6">${from}</span></div></li>`;
     }
     
     const achievementsCard = document.getElementById('key-achievements-card');
+    achievementsCard.innerHTML = '';
     for (const { title, from } of achievementsList) {
       achievementsCard.innerHTML += `<li> <div class="h5 mb-1">${title} <span class="text-muted h6">${from}</span></div></li>`;
     }
@@ -527,6 +525,7 @@ function fillsData(summaryList = defaultSummaryList, workExperience = defaultWor
 
   function fillupSkills(skillsList) {
     const skillsSection = document.getElementById('skill-section');
+    skillsSection.innerHTML = '';
     skillsSection.innerHTML = `
       <div class="col-md-6">
         ${skillsList.filter(e => e.isLeft).map(e => `<div class="mb-2"><span>${e.title}</span>
