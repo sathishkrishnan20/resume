@@ -64,8 +64,8 @@
   <div class="about-section pt-4 px-3 px-lg-4 mt-1">
     <div class="row">
       <div class="col-md-6">
-        <h2 class="h3 mb-3">About Me</h2>
-        <p>Hello! I’m Sathish Krishnan. I am passionate about Software Development. I am a skilled in Backed-end and Front End Development and Cloud deployment. </p>
+        <h2 class="h3 mb-3">Summary</h2>
+        <p>Experienced Senior Software Engineer with a proven track record in designing and implementing scalable, high-performance backend systems. My expertise spans full-stack development, focusing on backend systems, database management, and API development.</p>
       </div>
       
       <div class="col-md-5 offset-md-1">
@@ -80,13 +80,13 @@
             <div class="pb-1">Email</div>
           </div>
           <div class="col-sm-8">
-            <div class="pb-1 text-secondary">sathishkrish20@gmail.com</div>
+            <div class="pb-1 text-secondary"> <a href="mailto:sathishkrish20@gmail.com">sathishkrish20@gmail.com</a> </div>
           </div>
           <div class="col-sm-4">
             <div class="pb-1">Phone</div>
           </div>
           <div class="col-sm-8">
-            <div class="pb-1 text-secondary">+91 8883334889/9164932823</div>
+            <div class="pb-1 text-secondary"><a href="tel:+918883334889">+91 888 333 4889</a></p> </div>
           </div>
           <div class="col-sm-4">
             <div class="pb-1">Address</div>
@@ -97,7 +97,7 @@
         </div>
       </div>
       <div class="col-md-12">
-        <h2 class="h3 mb-3">Summary</h2>
+        <h2 class="h3 mb-3">Key Strengths</h2>
           <ul id="summary-card" style="list-style-type:disc">
           </ul>
       </div>
@@ -235,28 +235,19 @@
 <script>
   const defaultSummaryList = [
     {
-      "summary": "Five years of experience in the Software Development and IT industry"
+      "summary": "Experienced in designing and developing web applications using MER(A)N stack technologies, including Node.js, MongoDB, Express.js, React.js and Angular"
     },
     {
-      "summary": "Five years of Experience in Javascript, Node.js"
+      "summary": "Extensive experience in designing and implementing scalable backend APIs and integrating third-party services."
     },
     {
-      "summary": "Hands on Experience in MySQL, Postgress and MongoDB databases"
+      "summary": "Proven success in optimizing database performance and designing efficient database schemas."
     },
     {
-      "summary": "Hands on Experience on React.JS and React Native"
+      "summary": "Experience in deploying applications on Cloud platforms like AWS and VPS/VM"
     },
     {
-      "summary": "Good Experience in Microservices and REST Services"
-    },
-    {
-      "summary": "Good Experience on DialogFlow and ChatBot Services"
-    },
-    {
-      "summary": "Excellent analytical and logical programming skills with a good understanding at the conceptual level"
-    },
-    {
-      "summary": "Experience on Continuous Integration tool(Jenkins, CircleCI) and Version Control System(GIT)"
+      "summary": "Experience with Continuous Integration and deployment tools Like Jenkins, CircleCI, and GitHub actions"
     }
   ]
   const defaultWorkExperience = [
@@ -348,8 +339,27 @@
 
   const defaultOwnProjectData = [
     {
+      projectName: 'Expense Manager',
+      technologies: 'React.JS, Node.Js, Google Sheet, GoogleAuth',
+      duration: 'Jan 2024 - Present',
+      descriptionPoints: [
+        'Expense Manager is a user-friendly application accessible on the web designed for Small Screen or Mobile screens.',
+        'It helps individuals or businesses track, categorize, and manage their financial expenditures. It typically allows users to input and organize expenses and income.'
+      ]
+    },
+    {
+      projectName: 'Vzykart',
+      technologies: 'Node.Js, MongoDB, React, React Native Web, S3',
+      duration: 'Feb 2023 - Jul 2023',
+      descriptionPoints: [
+        'Vzykart is a user-friendly e-commerce application accessible on Android, IOS, and the web.',
+        'Tailored for Village users with regional language support. it offers a simple and convenient shopping experience, bringing a wide range of products right to their fingertips'
+      ]
+    },
+    {
       projectName: 'Ayya Vaikunda Swamy',
       technologies: 'Java, Android, MYSQL, Native Android, PHP',
+      duration: 'Jul 2016 - Feb 2017',
       descriptionPoints: [
         'AVS is designed to publicize the information about “AYYA VAIKUNDA SWAMI” religion to the people and It provides all the historical and biographical information about him and his life',
         'It allows the user to add/View the nearby temples. it has a facility to post their innovative poetry'
@@ -358,6 +368,7 @@
     {
       projectName: 'Student Veus',
       technologies: 'Java, Angular, Ionic, MySql',
+      duration: 'Jul 2017 - Jan 2018',
       descriptionPoints: [
         'Student Veus Designed to connect the Student activities with their parents and staff activities with school or College management and it has a facility to mark the Student Attendance, exam scores, sports activities.',
         "Staff can manage the student's profile and their related information as like management user can access staff as well as the Students profile and their related information"
@@ -492,11 +503,12 @@ function fillsData(summaryList = defaultSummaryList, workExperience = defaultWor
   var ownProjects = document.getElementById('own-projects-card');
   ownProjects.innerHTML = '';
   for (let index = 0; index < ownProjectData.length; index++) {
-    const { projectName, descriptionPoints, technologies } = ownProjectData[index];
+    const { projectName, descriptionPoints, technologies, duration } = ownProjectData[index];
       ownProjects.innerHTML += 
         `<div class="timeline-card timeline-card-success card shadow-sm">
           <div class="card-body">
             <div class="h5 mb-1">${projectName}</div>
+            <div class="text-muted text-small mb-2">${duration}</div>
             <div class="h6 mb-2 text-small">Techonologies Used: <span class="text-muted text-small h6">${technologies}</span></div>
               <ul style="list-style-type:disc">
                 ${descriptionPoints.map(point => `
