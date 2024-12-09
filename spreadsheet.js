@@ -21,6 +21,7 @@ async function getContents() {
     
     const mapper = {
         descriptionPoints: multiLineParser.bind(this),
+        rolesAndResponsibilities: multiLineParser.bind(this),
         isLeft: booleanParser.bind(this),
         percentage: numberParser.bind(this),
     }

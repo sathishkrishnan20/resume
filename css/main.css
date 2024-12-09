@@ -39,13 +39,14 @@
   z-index: 1; }
 
 .timeline-card-primary {
-  border-left-color: #4A89DC; }
+  border-left-color: rgb(79, 185, 214) }
 
 .timeline-card-primary:before {
-  border-color: #4A89DC; }
+  border-color: rgb(79, 185, 214) 
+}
 
 .timeline-card-primary:after {
-  background-color: #4A89DC; }
+  background-color: rgb(79, 185, 214) }
 
 .timeline-card-success {
   border-left-color: #37BC9B; }
@@ -102,6 +103,27 @@ footer a:not(.nav-link) {
   border-bottom: 1px dashed;
   text-decoration: none;
   cursor: pointer; }
+
+
+.company-bottom {
+  border-bottom: 2px dashed rgb(79, 185, 214);
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+}
+
+
+ul.flower-list {
+  list-style: none; /* Remove default bullets */
+  padding-left: 20px; /* Add space for custom bullets */
+}
+
+ul.flower-list li::before {
+  content: "❀"; /* Flower-like Unicode character */
+  color: rgb(79, 185, 214); /* Flower color */
+  font-size: 18px; /* Adjust size */
+  margin-right: 8px; /* Space between bullet and text */
+}
+
 
 @media (min-width: 48em) {
   .site-title {
