@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sathish krishnan Resume</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin" />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&amp;family=Roboto:wght@300;400;500;700&amp;display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&amp;family=Roboto:wght@300;400;500;700&amp;display=swap" media="print" onload="this.media='all'" />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&amp;family=Roboto:wght@300;400;500;700&amp;display=swap" />
+    </noscript>
+    <link href="css/font-awesome/css/all.css?ver=1.2.0" rel="stylesheet">
+    <link href="css/bootstrap.css?ver=1.2.0" rel="stylesheet">
+    <link href="css/aos.css?ver=1.2.0" rel="stylesheet">
+    <link href="css/main.css?ver=1.2.0" rel="stylesheet">
+    <script type="text/javascript" src="spreadsheet.js"></script>
+    <noscript>
+      <style type="text/css">
+        [data-aos] {
+          opacity: 1 !important;
+          transform: translate(0) scale(1) !important;
+        }
+      </style>
+    </noscript>
+  </head>
+  <body id="top">
+    <!-- DigiGold App Case Study -->
+    <div class=" my-2">
+      <div class="row justify-content-center">
+        <div class="col-md-10">
+          <div class="card border-0 rounded-3 p-4">
+            <h2 class="mb-3">💰 DigiGold App</h2>
+            <h6 class="text-muted">End-to-End Digital Gold Investment Platform</h6>
+            <p class="mt-3"> I independently designed, built, and deployed the <strong>DigiGold App</strong>, handling <strong>backend services</strong>, <strong>React Native Expo mobile app</strong>, and <strong>infrastructure setup</strong>. Below is a detailed breakdown of my <strong>tech stack choices with cost and scalability considerations</strong>. </p>
+            <!-- Serverless vs Server -->
+            
+            
+            <h4 class="mt-4">☁️ Architecture Diagram</h4>
+            <img src="images/digigoldarch.png" />
+      
+            
+            <h4 class="mt-4">☁️ Serverless vs Server</h4>
+            <p> I chose <strong>Serveress</strong> over server-based deployments. For ~1000 MAUs, Serverless pay-per-request model ensures cost efficiency, while traditional servers would incur fixed monthly costs even when idle. </p>
+            <!-- Lambda vs Fargate Serverless Comparison -->
+            <div class="card p-4 mb-4 shadow-lg border-0 rounded-3">
+              <h3 class="mb-3">☁️ Serverless Compute Choice — AWS Lambda vs Fargate Serverless</h3>
+              <p> For <strong>1,000 MAUs</strong>, each using the app ~10 times/month and triggering <strong>5–10 API calls per session</strong>, the monthly traffic is <strong>50k–100k API calls</strong>. Below is the cost breakdown for AWS Lambda and AWS Fargate Serverless. </p>
+              <!-- Assumptions -->
+              <ul>
+                <li>Duration per request: <strong>200 ms</strong>
+                </li>
+                <li>Lambda memory sizes: <strong>128 MB</strong> and <strong>512 MB</strong>
+                </li>
+                <li>Fargate configs: <strong>0.25 vCPU + 0.5 GB</strong>, <strong>0.5 vCPU + 1 GB</strong>
+                </li>
+              </ul>
+              <!-- Comparison Table -->
+              <div class="table-responsive">
+                <table class="table table-bordered text-center align-middle">
+                  <thead class="table-dark">
+                    <tr>
+                      <th>Configuration</th>
+                      <th>AWS Lambda</th>
+                      <th>AWS Fargate Serverless</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>128 MB / 0.25 vCPU + 0.5 GB</td>
+                      <td>
+                        <strong>$0</strong> (covered by free tier) <br> 2,500 GB-s, 100k requests &lt; 400k GB-s + 1M requests free
+                      </td>
+                      <td>
+                        <strong>$0.068 / month</strong>
+                        <br> 100k × (0.25 vCPU + 0.5 GB × 0.2s)
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>512 MB / 0.5 vCPU + 1 GB</td>
+                      <td>
+                        <strong>$0</strong> (covered by free tier) <br> 10,000 GB-s &lt; 400k GB-s free
+                      </td>
+                      <td>
+                        <strong>$0.137 / month</strong>
+                        <br> 100k × (0.5 vCPU + 1 GB × 0.2s)
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- Key Insights -->
+              <p class="mt-3"> ✅ <strong>At 1,000 MAUs (≤100k API calls/month):</strong> Lambda runs entirely free, while Fargate Serverless costs just a few cents. <br> ✅ <strong>Scaling beyond free tier:</strong> Lambda costs grow per request + GB-s, while Fargate Serverless charges per vCPU-second + GB-second (predictable for heavier workloads). <br> ✅ <strong>Why Lambda here?</strong> Zero cost at current scale, automatic scaling, minimal ops overhead. </p>
+            </div>
+            <!-- Database Choice -->
+            <!-- Database Comparison: CockroachDB vs Aurora Serverless -->
+            <div class="card p-4 mb-4 shadow-lg border-0 rounded-3">
+              <h3 class="mb-3">🗄️ Database Choice — CockroachDB Serverless vs Aurora Serverless v2</h3>
+              <p> For database, I compared <strong>CockroachDB</strong> (serverless, distributed SQL) with <strong>Aurora</strong>. With 50M free Request Units (RUs) on CockroachDB, small-to-medium scale workloads fit entirely in free tier. </p>
+              <p> For <strong>1,000 MAUs</strong> (~100k API calls/month), each request consumes ~ <strong>2 Request Units (RUs)</strong>. That’s ~ <strong>200k RUs/month</strong>, plus ~ <strong>5 GB storage</strong> for user & transaction data. </p>
+              <!-- Assumptions -->
+              <ul>
+                <li>Workload: 70% reads, 30% writes</li>
+                <li>RU consumption: ~2 RUs per API call → 100k × 2 = <strong>200k RUs</strong>
+                </li>
+                <li>Storage baseline: ~5 GB</li>
+              </ul>
+              <!-- Comparison Table -->
+              <div class="table-responsive">
+                <table class="table table-bordered text-center align-middle">
+                  <thead class="table-dark">
+                    <tr>
+                      <th>Configuration</th>
+                      <th>CockroachDB Serverless</th>
+                      <th>Aurora Serverless v2</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Compute / RUs</td>
+                      <td>
+                        <strong>200k RUs &lt; 50M free</strong>
+                        <br>
+                        <strong>$0</strong> (well under free quota)
+                      </td>
+                      <td> Billed in <strong>ACUs</strong> (~$0.06/ACU-hour) <br> For 0.5–1 ACU baseline = ~ <strong>$21–$43/month</strong>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Storage (5 GB)</td>
+                      <td>
+                        <strong>$0</strong> (10 GB free storage)
+                      </td>
+                      <td>~$0.10/GB = <strong>$0.50/month</strong>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Scaling</td>
+                      <td> Auto-scales RUs within quota <br> Generous free tier for early stage </td>
+                      <td> Auto-scales ACUs in fine-grained steps <br> Better for heavier workloads </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- Key Insights -->
+              <p class="mt-3"> ✅ <strong>At 1,000 MAUs:</strong> CockroachDB Serverless runs entirely free (200k RUs ≪ 50M free, 5 GB ≪ 10 GB free). <br> ✅ <strong>Aurora Serverless v2:</strong> Always-on baseline capacity (~0.5–1 ACU) costs ~$20–40/month, even at low traffic. <br> ✅ <strong>Why CockroachDB here?</strong> Zero cost at current scale, built-in HA, and no upfront compute billing. Aurora shines at higher scale with enterprise-grade AWS ecosystem integration. </p>
+            </div>
+            <!-- Cognito + Custom SMS Sender Section -->
+            <div class="card p-4 mb-4 shadow-lg border-0 rounded-3">
+              <h3 class="mb-3">🔐 Cognito + Custom SMS Sender</h3>
+              <p> For the DigiGold app, I implemented <strong>AWS Cognito</strong> with a <strong>Custom SMS Sender</strong> to deliver OTPs and MFA codes through an existing business SMS provider, ensuring better deliverability, branding, and cost efficiency. </p>
+              <ul>
+                <li>
+                  <strong>Authentication:</strong> Cognito generates and validates OTPs securely.
+                </li>
+                <li>
+                  <strong>Custom SMS Flow:</strong> Lambda decrypts codes (AWS Encryption SDK + KMS) and sends via provider API.
+                </li>
+                <li>
+                  <strong>Secrets Management:</strong> Provider credentials stored in AWS Secrets Manager.
+                </li>
+                <li>
+                  <strong>Operational Benefits:</strong> Full control of sender IDs, delivery receipts, and compliance with regional SMS rules.
+                </li>
+                <li>
+                  <strong>Scalability:</strong> Lambda auto-scales with demand; no infrastructure to manage.
+                </li>
+              </ul>
+              <!-- Cost Analysis -->
+              <div class="mt-3">
+                <h6 class="fw-bold">💰 Cost Breakdown @ 1,000 MAUs</h6>
+                <ul>
+                  <li>
+                    <strong>AWS KMS:</strong> ~$1 / month (for encryption key usage)
+                  </li>
+                  <li>
+                    <strong>SMS Delivery:</strong> ~10,00 OTPs × ₹0.15 = ~₹150 / month (~$2)
+                  </li>
+                  <li>
+                    <strong>Total:</strong> ~₹230 / month (~$3)
+                  </li>
+                </ul>
+              </div>
+              <p class="mt-2"> ✅ <strong>Result:</strong> Seamless multi-factor authentication with secure, branded SMS delivery, leveraging Cognito’s security while keeping costs predictable with the existing SMS provider. </p>
+            </div>
+            <!-- Backend Framework & Data Layer Section -->
+            <div class="card p-4 mb-4 shadow-lg border-0 rounded-3">
+              <h3 class="mb-3">⚙️ Backend Framework & Data Layer</h3>
+              <p> For the DigiGold app, I built the backend using <strong>NestJS</strong> with <strong>Fastify</strong> as the HTTP adapter, and <strong>TypeORM</strong> for the data access layer. This combination provided high performance, scalability, and a clean developer experience. </p>
+              <!-- Comparison Table -->
+              <div class="table-responsive">
+                <table class="table table-bordered text-center align-middle">
+                  <thead class="table-dark">
+                    <tr>
+                      <th>Aspect</th>
+                      <th>NestJS + Fastify</th>
+                      <th>NestJS + Express</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Performance</td>
+                      <td> 🚀 2x faster request handling <br> Lower latency under concurrent load </td>
+                      <td> Standard performance <br> Slower under high concurrency </td>
+                    </tr>
+                    <tr>
+                      <td>Resource Usage</td>
+                      <td> Lightweight, better memory efficiency <br> Ideal for serverless/Lambda </td>
+                      <td> Higher memory footprint <br> More overhead for small instances </td>
+                    </tr>
+                    <tr>
+                      <td>Ecosystem</td>
+                      <td> Compatible with NestJS decorators, DI, and middleware <br> Fully supported </td>
+                      <td> Mature ecosystem, large community <br> Well-known in industry </td>
+                    </tr>
+                    <tr>
+                      <td>TypeORM Integration</td>
+                      <td> First-class support <br> Works seamlessly with Postgres, CockroachDB, Aurora </td>
+                      <td> Same ORM support <br> But slightly more overhead per query </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- Data Layer & Mobile Integration -->
+              <div class="mt-3">
+                <h6 class="fw-bold">📊 Data Layer (TypeORM)</h6>
+                <ul>
+                  <li>Unified ORM layer with <strong>Postgres-compatible DBs</strong> (CockroachDB, Aurora). </li>
+                  <li>Entity-driven design with migrations and schema sync.</li>
+                  <li>Optimized queries to stay within free RU limits for CockroachDB.</li>
+                </ul>
+                <h6 class="fw-bold">📱 Mobile App (React Native Expo)</h6>
+                <ul>
+                  <li>Expo for rapid development, OTA updates, and smaller team velocity.</li>
+                  <li>Integrated with backend APIs via Axios/GraphQL (secured with Cognito JWT).</li>
+                  <li>Firebase Crashlytics & Analytics for app monitoring and user insights.</li>
+                  <li>Firebase Cloud Messaging for push notifications.</li>
+                </ul>
+              </div>
+              <p class="mt-2"> ✅ <strong>Result:</strong> A backend optimized for serverless performance and low cost, paired with a cross-platform mobile app (iOS + Android) for a seamless DigiGold user experience. </p>
+            </div>
+            <!-- Why Lambda + TypeORM (vs plain JS functions) -->
+            <div class="card p-4 mb-4 shadow-lg border-0 rounded-3">
+              <h3 class="mb-3">☁️ Lambda with TypeORM vs Plain JavaScript Functions</h3>
+              <p> While simple JavaScript functions could directly query the database inside AWS Lambda, I chose <strong>TypeORM</strong> with <strong>NestJS</strong> for DigiGold. This decision provided strong consistency, maintainability, and scalability for a financial-grade application. </p>
+              <!-- Comparison Table -->
+              <div class="table-responsive">
+                <table class="table table-bordered text-center align-middle">
+                  <thead class="table-dark">
+                    <tr>
+                      <th>Aspect</th>
+                      <th>Lambda + TypeORM</th>
+                      <th>Lambda + Plain JS Functions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Code Organization</td>
+                      <td> ✅ Entity-driven models, repositories <br> ✅ Reusable services, clean architecture </td>
+                      <td> ❌ Ad-hoc SQL strings <br> ❌ Harder to maintain and scale </td>
+                    </tr>
+                    <tr>
+                      <td>Database Portability</td>
+                      <td> ✅ Works seamlessly with Postgres, CockroachDB, Aurora <br> ✅ Easy migration scripts </td>
+                      <td> ❌ Vendor lock-in (raw queries) <br> ❌ No migration tooling </td>
+                    </tr>
+                    <tr>
+                      <td>Security & Validation</td>
+                      <td> ✅ Automatic query sanitization <br> ✅ Strong typing with entities </td>
+                      <td> ❌ Risk of SQL injection <br> ❌ Manual validation required </td>
+                    </tr>
+                    <tr>
+                      <td>Maintainability</td>
+                      <td> ✅ Standardized patterns <br> ✅ Onboarding-friendly for teams </td>
+                      <td> ❌ Logic scattered in functions <br> ❌ Harder to debug complex flows </td>
+                    </tr>
+                    <tr>
+                      <td>Performance in Lambda</td>
+                      <td> ⚡ Slightly higher cold start due to ORM init <br> But optimized with connection pooling + Fastify </td>
+                      <td> ⚡ Lower cold start overhead <br> But higher dev/ops cost in the long run </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- Key Takeaway -->
+              <p class="mt-3"> ✅ <strong>Why TypeORM?</strong> Even though plain JS functions are lighter, TypeORM ensures long-term scalability, security, and developer productivity — all critical for a financial app like DigiGold, where data integrity and maintainability matter more than a few milliseconds of cold-start latency. </p>
+            </div>
+            <!-- Mobile App Framework Section -->
+            <div class="card p-4 mb-4 shadow-lg border-0 rounded-3">
+              <h3 class="mb-3">📱 React Native Expo vs Plain React Native CLI</h3>
+              <p> For the DigiGold mobile app, I chose <strong>React Native with Expo</strong> over plain React Native CLI to accelerate development, streamline deployment, and ensure consistent cross-platform behavior. </p>
+              <!-- Comparison Table -->
+              <div class="table-responsive">
+                <table class="table table-bordered text-center align-middle">
+                  <thead class="table-dark">
+                    <tr>
+                      <th>Aspect</th>
+                      <th>React Native + Expo</th>
+                      <th>Plain React Native CLI</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Setup & Development Speed</td>
+                      <td> ✅ Simplified setup <br> ✅ Pre-configured tooling, OTA updates via Expo <br> ✅ Fast iteration with Expo Go app </td>
+                      <td> ❌ Manual configuration for iOS/Android <br> ❌ Slower iteration without Expo tools </td>
+                    </tr>
+                    <tr>
+                      <td>Cross-Platform Consistency</td>
+                      <td> ✅ Single build system for iOS & Android <br> ✅ Handles native dependencies internally </td>
+                      <td> ❌ Separate native project management required <br> ❌ More risk of platform-specific bugs </td>
+                    </tr>
+                    <tr>
+                      <td>Build & Deployment</td>
+                      <td> ✅ OTA updates without app store resubmission <br> ✅ EAS Build supports staging & production builds </td>
+                      <td> ❌ Requires Xcode/Android Studio for every build <br> ❌ OTA updates require custom infrastructure </td>
+                    </tr>
+                    <tr>
+                      <td>Performance & Flexibility</td>
+                      <td> ⚡ Slightly larger binary and minor performance overhead for managed workflow <br> ⚡ Can eject if full native control is needed </td>
+                      <td> ⚡ Leaner binaries <br> ⚡ Full native control by default </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- Key Takeaway -->
+              <p class="mt-3"> ✅ <strong>Why Expo?</strong> Chose Expo for faster development, OTA updates, cross-platform consistency, and simplified integration with backend (Cognito + TypeORM) and analytics tools (Firebase). Ejected only when deeper native control was required. </p>
+            </div>
+            <div class="card p-4 mb-4 shadow-lg border-0 rounded-3">
+              <h4 class="mt-2">🔐 Monitoring, Engagement & CI/CD</h4>
+              <ul>
+                <!-- Mobile App Monitoring & Engagement -->
+                <li>
+                  <strong>Firebase Crashlytics</strong> → Real-time error reporting for React Native app
+                </li>
+                <li>
+                  <strong>Firebase Analytics</strong> → User behavior insights and engagement tracking
+                </li>
+                <li>
+                  <strong>Firebase Cloud Messaging</strong> → Push notifications for user engagement
+                </li>
+                <!-- Backend Monitoring -->
+                <li>
+                  <strong>AWS CloudWatch</strong> → Logs, metrics, and alerts for backend (Lambda, Fastify + NestJS)
+                </li>
+                <!-- CI/CD -->
+                <li>
+                  <strong>CI/CD with GitHub Actions</strong> → Automated build, test, and deployment pipelines for both backend and mobile app (staging & production)
+                </li>
+              </ul>
+              <p class="mt-2"> ✅ <strong>Result:</strong> Full-stack monitoring with real-time alerts, actionable analytics, and automated deployment pipelines for faster iteration and reliable production releases. </p>
+            </div>
+            <!-- Framework -->
+            <!-- Summary -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
