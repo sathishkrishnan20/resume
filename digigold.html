@@ -35,11 +35,59 @@
             <h6 class="text-muted">End-to-End Digital Gold Investment Platform</h6>
             <p class="mt-3"> I independently designed, built, and deployed the <strong>DigiGold App</strong>, handling <strong>backend services</strong>, <strong>React Native Expo mobile app</strong>, and <strong>infrastructure setup</strong>. Below is a detailed breakdown of my <strong>tech stack choices with cost and scalability considerations</strong>. </p>
             <!-- Serverless vs Server -->
-            
+            <h5>💳 Online Payments (In Progress)</h5>
+  <p>
+    Currently, <strong>online payment integration is in development</strong>.  
+    We are in discussions with a payment provider, and approval is pending.  
+    Once integrated, all <strong>scheme transactions</strong> will be seamlessly linked 
+    with payment records for full auditability.
+  </p>
             
             <h4 class="mt-4">☁️ Architecture Diagram</h4>
             <img src="images/digigoldarch.png" />
-      
+            
+            <!-- Scheme Domain Design Section -->
+<div class="card p-4 mb-4 shadow-lg border-0 rounded-3">
+  <h3 class="mb-3">💳 Scheme Domain Design</h3>
+  <p>
+    The DigiGold app supports structured <strong>gold saving schemes</strong>, designed to 
+    handle metals, business rules, rewards, and financial transactions in a scalable way.  
+    Below is the conceptual breakdown:
+  </p>
+
+  <ul>
+    <li>
+      <strong>Metals:</strong> Core entity representing the investment asset.  
+      Supports Gold and Silver initially, but extendable Platinum, etc. Each metal 
+      has attributes such as purity, live price.
+    </li>
+    <li>
+      <strong>Schemes:</strong> Defines user-facing savings plans (Daily, Weekly, Monthly).  
+      Includes duration, minimum contribution, and maturity conditions.
+    </li>
+    <li>
+      <strong>Scheme Business Rules:</strong> Encodes plan logic — e.g., Maximum scheme allowed, Scheme transaction window etc..
+    </li>
+    <li>
+      <strong>Scheme Rewards:</strong> Incentives applied on top of schemes, such as 
+      bonus gold grams on maturity or discounts on making charges.  
+      Configurable per scheme and tied into reward disbursement workflows.
+    </li>
+    <li>
+      <strong>Scheme Transactions:</strong> Records all user contributions and 
+      resulting gold allocation (grams purchased at real-time price).  
+      Immutable ledger ensuring auditability and reconciliation with payments.
+    </li>
+  </ul>
+
+  <img src="images/digigoldschema.png" />
+  <p class="mt-2">
+    ✅ <strong>Result:</strong> A domain-driven design that ensures DigiGold schemes are 
+    flexible, auditable, and extensible for new metals, business rules, and reward models.  
+    This structure provides a strong foundation for compliance, customer trust, and growth.
+  </p>
+</div>
+
             
             <h4 class="mt-4">☁️ Serverless vs Server</h4>
             <p> I chose <strong>Serveress</strong> over server-based deployments. For ~1000 MAUs, Serverless pay-per-request model ensures cost efficiency, while traditional servers would incur fixed monthly costs even when idle. </p>
@@ -327,6 +375,8 @@
               <!-- Key Takeaway -->
               <p class="mt-3"> ✅ <strong>Why Expo?</strong> Chose Expo for faster development, OTA updates, cross-platform consistency, and simplified integration with backend (Cognito + TypeORM) and analytics tools (Firebase). Ejected only when deeper native control was required. </p>
             </div>
+
+            
             <div class="card p-4 mb-4 shadow-lg border-0 rounded-3">
               <h4 class="mt-2">🔐 Monitoring, Engagement & CI/CD</h4>
               <ul>
@@ -380,6 +430,7 @@
                 ✅ <strong>Result:</strong> Reliable deployments with confidence in backend correctness, 
                 reducing production issues and ensuring financial-grade stability.
               </p>
+              
             </div>
 
             <!-- Framework -->
